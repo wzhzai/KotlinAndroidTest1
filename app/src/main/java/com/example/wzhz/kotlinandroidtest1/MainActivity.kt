@@ -3,6 +3,7 @@ package com.example.wzhz.kotlinandroidtest1
 import android.Manifest
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -18,8 +19,6 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     val TAG: String = "MainActivity"
-
-    val REQUEST_CODE_ASK_PERMISSIONS: Int = 111
 
     var listView: ListView? = null
 
@@ -49,6 +48,8 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(context, "onClick position=$i", Toast.LENGTH_SHORT).show()
             if (i == 22 && !TextUtils.isEmpty(password) && password.equals("12345")) {
                 Toast.makeText(context, "you are right!", Toast.LENGTH_SHORT).show()
+                val intent: Intent = Intent(context, CallLogActivity::class.java)
+                startActivity(intent)
             }
         } }
 
@@ -123,13 +124,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun addCall() {
-        val content: ContentValues = ContentValues()
-        content.put(CallLog.Calls.TYPE, CallLog.Calls.INCOMING_TYPE)
-        content.put(CallLog.Calls.NUMBER, "12345")
-        content.put(CallLog.Calls.DATE, System.currentTimeMillis())
-        content.put(CallLog.Calls.NEW, "0")
-        content.put(CallLog.Calls.DURATION, 3600)
-        contentResolver.insert(CallLog.Calls.CONTENT_URI, content)
-    }
 }
